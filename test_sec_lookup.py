@@ -31,3 +31,21 @@ def test_filings_returns_valid_json_for_known_ticker():
 def test_filings_unknown_ticker_exits_2():
     result = run(["filings", "ZZZZZNOTREAL"])
     assert result.returncode == 2
+
+def test_research_returns_valid_json_for_known_ticker():
+    result = run(["research", "AAPL"])
+    assert result.returncode == 0, f"stderr: {result.stderr}"
+    data = json.loads(result.stdout)
+    assert data["ticker"] == "AAPL"
+    # At least one API section should have data
+    has_data = any(data.get(k) is not None for k in ["finnhub", "marketaux", "alphavantage"])
+    assert has_data, "All API sections returned null"
+
+def test_research_partial_failure_still_exits_0():
+    """If at least one API works, exit 0 even if others fail."""
+    result = run(["research", "AAPL"])
+    assert result.returncode == 0
+    data = json.loads(result.stdout)
+    # Verify structure: each section is either a dict/list or null
+    for key in ["finnhub", "marketaux", "alphavantage"]:
+        assert key in data

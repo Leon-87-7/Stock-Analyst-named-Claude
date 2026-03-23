@@ -87,10 +87,100 @@ def get_filings(ticker, max_filings=5):
     }
     print(json.dumps(result, indent=2))
 
+def api_request(url, headers=None):
+    """Make a generic API request, return parsed JSON or None on failure."""
+    try:
+        req = Request(url, headers=headers or {})
+        with urlopen(req, timeout=30) as resp:
+            return json.loads(resp.read())
+    except (URLError, HTTPError, json.JSONDecodeError) as e:
+        print(f"API request failed for {url}: {e}", file=sys.stderr)
+        return None
+
 def get_research(ticker):
-    """Placeholder — implemented in Task 2."""
-    print('{"error": "not implemented"}', file=sys.stderr)
-    sys.exit(1)
+    """Gather supplementary research from Finnhub, MarketAux, Alpha Vantage."""
+    ticker_upper = ticker.upper()
+
+    finnhub_key = os.environ.get("FINNHUB_API_KEY", "")
+    marketaux_key = os.environ.get("MARKETAUX_API_TOKEN", "")
+    alphavantage_key = os.environ.get("ALPHAVANTAGE_API_KEY", "")
+
+    # Finnhub
+    finnhub = None
+    if finnhub_key:
+        recommendations = api_request(
+            f"https://finnhub.io/api/v1/stock/recommendation?symbol={ticker_upper}&token={finnhub_key}"
+        )
+        peers = api_request(
+            f"https://finnhub.io/api/v1/stock/peers?symbol={ticker_upper}&token={finnhub_key}"
+        )
+        earnings = api_request(
+            f"https://finnhub.io/api/v1/stock/earnings?symbol={ticker_upper}&token={finnhub_key}"
+        )
+        if any(x is not None for x in [recommendations, peers, earnings]):
+            finnhub = {
+                "recommendations": recommendations or [],
+                "peers": peers or [],
+                "earnings": earnings or [],
+            }
+    else:
+        print("FINNHUB_API_KEY not set, skipping Finnhub", file=sys.stderr)
+
+    # MarketAux
+    marketaux = None
+    if marketaux_key:
+        news_data = api_request(
+            f"https://api.marketaux.com/v1/news/all?symbols={ticker_upper}&filter_entities=true&limit=10&api_token={marketaux_key}"
+        )
+        if news_data and "data" in news_data:
+            marketaux = {
+                "news": [
+                    {
+                        "title": article.get("title", ""),
+                        "sentiment": next(
+                            (e.get("sentiment_score", 0) for e in article.get("entities", [])
+                             if e.get("symbol") == ticker_upper),
+                            0
+                        ),
+                        "url": article.get("url", ""),
+                        "published_at": article.get("published_at", ""),
+                    }
+                    for article in news_data["data"][:10]
+                ]
+            }
+    else:
+        print("MARKETAUX_API_TOKEN not set, skipping MarketAux", file=sys.stderr)
+
+    # Alpha Vantage
+    alphavantage = None
+    if alphavantage_key:
+        overview = api_request(
+            f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={ticker_upper}&apikey={alphavantage_key}"
+        )
+        earnings_av = api_request(
+            f"https://www.alphavantage.co/query?function=EARNINGS&symbol={ticker_upper}&apikey={alphavantage_key}"
+        )
+        if overview or earnings_av:
+            alphavantage = {
+                "overview": overview if overview and "Symbol" in overview else None,
+                "earnings": earnings_av.get("quarterlyEarnings", [])[:8] if earnings_av else [],
+            }
+    else:
+        print("ALPHAVANTAGE_API_KEY not set, skipping Alpha Vantage", file=sys.stderr)
+
+    result = {
+        "ticker": ticker_upper,
+        "finnhub": finnhub,
+        "marketaux": marketaux,
+        "alphavantage": alphavantage,
+    }
+
+    # Exit 1 only if ALL APIs failed
+    all_failed = all(v is None for v in [finnhub, marketaux, alphavantage])
+    print(json.dumps(result, indent=2))
+    if all_failed:
+        print("All APIs failed", file=sys.stderr)
+        sys.exit(1)
 
 def main():
     if len(sys.argv) < 3:
