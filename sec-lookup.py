@@ -4,6 +4,7 @@
 import sys
 import json
 import os
+from datetime import datetime, timedelta
 from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 from pathlib import Path
@@ -63,9 +64,11 @@ def get_filings(ticker, max_filings=5):
     accessions = recent.get("accessionNumber", [])
     primary_docs = recent.get("primaryDocument", [])
 
+    cutoff = (datetime.now() - timedelta(days=5 * 365)).strftime("%Y-%m-%d")
+
     filings = []
     for i in range(len(forms)):
-        if forms[i] == "10-K" and len(filings) < max_filings:
+        if forms[i] == "10-K" and dates[i] >= cutoff and len(filings) < max_filings:
             acc_clean = accessions[i].replace("-", "")
             url = f"https://www.sec.gov/Archives/edgar/data/{cik}/{acc_clean}/{primary_docs[i]}"
             filings.append({

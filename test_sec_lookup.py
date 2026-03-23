@@ -1,4 +1,5 @@
 import subprocess, json, os
+from datetime import datetime, timedelta
 
 SCRIPT = os.path.join(os.path.dirname(__file__), "sec-lookup.py")
 BASE = os.path.dirname(__file__)
@@ -21,9 +22,11 @@ def test_filings_returns_valid_json_for_known_ticker():
     assert data["sicDescription"] != ""
     assert len(data["filings"]) <= 5
     assert len(data["filings"]) > 0
+    cutoff = (datetime.now() - timedelta(days=5 * 365)).strftime("%Y-%m-%d")
     for f in data["filings"]:
         assert f["form"] == "10-K"
         assert f["url"].startswith("https://www.sec.gov/Archives/")
+        assert f["date"] >= cutoff, f"Filing date {f['date']} is older than 5 years"
 
 def test_filings_unknown_ticker_exits_2():
     result = run(["filings", "ZZZZZNOTREAL"])
