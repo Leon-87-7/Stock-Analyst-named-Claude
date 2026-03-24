@@ -30,7 +30,7 @@
       ]
     },
     "phase4_notebooklm": {
-      "status": "in_progress",
+      "status": "mostly_complete",
       "notebook_id": "97afc272-899f-4d6f-bbde-cc75bc7faf1e",
       "notebook_title": "TRGP - Targa Resources Corp. Analysis",
       "sources_uploaded": 4,
@@ -40,20 +40,24 @@
           "downloaded": true,
           "file": "TRGP-Report.pdf"
         },
+        "audio": {
+          "status": "completed",
+          "downloaded": true,
+          "file": "TRGP-Podcast.mp3",
+          "title": "Why Targa Resources trades like tech"
+        },
+        "infographic": {
+          "status": "completed",
+          "downloaded": true,
+          "file": "TRGP-Infographic.png",
+          "title": "Energy Infrastructure Growth Analysis Infographic"
+        },
         "mind_map": {
           "status": "completed"
         },
-        "audio": {
-          "status": "pending",
-          "id": "00a90eed-823f-4425-98d1-2fe6c917f4e8"
-        },
         "slide_deck": {
-          "status": "in_progress",
-          "id": "f52d1d83-eece-47ee-a2af-d890c38074b9"
-        },
-        "infographic": {
-          "status": "in_progress",
-          "id": "2f70d17c-a583-4c4d-89d9-b4d8a2285e3f"
+          "status": "retrying",
+          "id": "8efb8043-2512-490b-a05f-d6ca8d8f1ff8"
         }
       }
     }
