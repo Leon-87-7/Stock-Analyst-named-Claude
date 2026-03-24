@@ -49,3 +49,19 @@ def test_research_partial_failure_still_exits_0():
     # Verify structure: each section is either a dict/list or null
     for key in ["finnhub", "marketaux", "alphavantage"]:
         assert key in data
+
+def test_quarterly_returns_valid_json_for_known_ticker():
+    result = run(["quarterly", "AAPL"])
+    assert result.returncode == 0, f"stderr: {result.stderr}"
+    data = json.loads(result.stdout)
+    assert data["ticker"] == "AAPL"
+    assert data["companyName"] != ""
+    assert len(data["filings"]) <= 4
+    assert len(data["filings"]) > 0
+    for f in data["filings"]:
+        assert f["form"] == "10-Q"
+        assert f["url"].startswith("https://www.sec.gov/Archives/")
+
+def test_quarterly_unknown_ticker_exits_2():
+    result = run(["quarterly", "ZZZZZNOTREAL"])
+    assert result.returncode == 2

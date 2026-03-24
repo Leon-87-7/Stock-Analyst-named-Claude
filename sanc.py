@@ -87,6 +87,47 @@ def get_filings(ticker, max_filings=5):
     }
     print(json.dumps(result, indent=2))
 
+def get_quarterly(ticker, max_filings=4):
+    """Get last 4 10-Q quarterly filings for a ticker."""
+    cik = ticker_to_cik(ticker)
+    if cik is None:
+        print(f"Ticker '{ticker}' not found in SEC database", file=sys.stderr)
+        sys.exit(2)
+
+    padded_cik = cik.zfill(10)
+    submissions = sec_request(SEC_SUBMISSIONS_URL.format(cik=padded_cik))
+
+    company_name = title_case_name(submissions.get("name", ""))
+    sic = submissions.get("sic", "")
+    sic_desc = submissions.get("sicDescription", "")
+
+    recent = submissions.get("filings", {}).get("recent", {})
+    forms = recent.get("form", [])
+    dates = recent.get("filingDate", [])
+    accessions = recent.get("accessionNumber", [])
+    primary_docs = recent.get("primaryDocument", [])
+
+    filings = []
+    for i in range(len(forms)):
+        if forms[i] == "10-Q" and len(filings) < max_filings:
+            acc_clean = accessions[i].replace("-", "")
+            url = f"https://www.sec.gov/Archives/edgar/data/{cik}/{acc_clean}/{primary_docs[i]}"
+            filings.append({
+                "form": "10-Q",
+                "date": dates[i],
+                "url": url,
+            })
+
+    result = {
+        "ticker": ticker.upper(),
+        "cik": cik,
+        "sic": sic,
+        "sicDescription": sic_desc,
+        "companyName": company_name,
+        "filings": filings,
+    }
+    print(json.dumps(result, indent=2))
+
 def api_request(url, headers=None):
     """Make a generic API request, return parsed JSON or None on failure."""
     try:
@@ -185,7 +226,7 @@ def get_research(ticker):
 def main():
     if len(sys.argv) < 3:
         print("Usage: sanc <command> <TICKER>", file=sys.stderr)
-        print("Commands: filings, research", file=sys.stderr)
+        print("Commands: filings, quarterly, research", file=sys.stderr)
         sys.exit(1)
 
     load_env()
@@ -194,6 +235,8 @@ def main():
 
     if command == "filings":
         get_filings(ticker)
+    elif command == "quarterly":
+        get_quarterly(ticker)
     elif command == "research":
         get_research(ticker)
     else:
