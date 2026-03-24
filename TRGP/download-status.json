@@ -1,0 +1,61 @@
+{
+  "ticker": "TRGP",
+  "company": "Targa Resources Corp.",
+  "date": "2026-03-24",
+  "phases": {
+    "phase1_sec_filings": {
+      "status": "completed",
+      "filings_downloaded": 5,
+      "years": [
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ]
+    },
+    "phase2_api_research": {
+      "status": "completed",
+      "finnhub": "success",
+      "marketaux": "failed (403 Forbidden)",
+      "alphavantage": "success"
+    },
+    "phase3_analysis": {
+      "status": "completed",
+      "documents": [
+        "01-industry-overview.md",
+        "02-bull-case-lynch-pitch.md",
+        "03-bear-case-munger-invert.md",
+        "04-financial-analysis.md"
+      ]
+    },
+    "phase4_notebooklm": {
+      "status": "in_progress",
+      "notebook_id": "97afc272-899f-4d6f-bbde-cc75bc7faf1e",
+      "notebook_title": "TRGP - Targa Resources Corp. Analysis",
+      "sources_uploaded": 4,
+      "artifacts": {
+        "report": {
+          "status": "completed",
+          "downloaded": true,
+          "file": "TRGP-Report.pdf"
+        },
+        "mind_map": {
+          "status": "completed"
+        },
+        "audio": {
+          "status": "pending",
+          "id": "00a90eed-823f-4425-98d1-2fe6c917f4e8"
+        },
+        "slide_deck": {
+          "status": "in_progress",
+          "id": "f52d1d83-eece-47ee-a2af-d890c38074b9"
+        },
+        "infographic": {
+          "status": "in_progress",
+          "id": "2f70d17c-a583-4c4d-89d9-b4d8a2285e3f"
+        }
+      }
+    }
+  }
+}

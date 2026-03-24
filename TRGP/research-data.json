@@ -1,0 +1,162 @@
+API request failed for https://api.marketaux.com/v1/news/all?symbols=TRGP&filter_entities=true&limit=10&api_token=VJXS0Ke2Qd5gl5o6fFjyc5IQVnJG5myERMl6gzzw: HTTP Error 403: Forbidden
+{
+  "ticker": "TRGP",
+  "finnhub": {
+    "recommendations": [
+      {
+        "buy": 16,
+        "hold": 2,
+        "period": "2026-03-01",
+        "sell": 1,
+        "strongBuy": 10,
+        "strongSell": 0,
+        "symbol": "TRGP"
+      },
+      {
+        "buy": 16,
+        "hold": 3,
+        "period": "2026-02-01",
+        "sell": 0,
+        "strongBuy": 10,
+        "strongSell": 0,
+        "symbol": "TRGP"
+      },
+      {
+        "buy": 16,
+        "hold": 3,
+        "period": "2026-01-01",
+        "sell": 0,
+        "strongBuy": 10,
+        "strongSell": 0,
+        "symbol": "TRGP"
+      },
+      {
+        "buy": 16,
+        "hold": 3,
+        "period": "2025-12-01",
+        "sell": 0,
+        "strongBuy": 10,
+        "strongSell": 0,
+        "symbol": "TRGP"
+      }
+    ],
+    "peers": [
+      "KMI",
+      "ET",
+      "LNG",
+      "MPLX",
+      "OKE",
+      "TRGP",
+      "CQP",
+      "WES",
+      "PAA",
+      "DTM",
+      "AM",
+      "HESM",
+      "WMB"
+    ],
+    "earnings": [
+      {
+        "actual": 2.53,
+        "estimate": 2.3435,
+        "period": "2025-12-31",
+        "quarter": 4,
+        "surprise": 0.1865,
+        "surprisePercent": 7.9582,
+        "symbol": "TRGP",
+        "year": 2025
+      },
+      {
+        "actual": 2.2,
+        "estimate": 2.1338,
+        "period": "2025-09-30",
+        "quarter": 3,
+        "surprise": 0.0662,
+        "surprisePercent": 3.1024,
+        "symbol": "TRGP",
+        "year": 2025
+      },
+      {
+        "actual": 2.87,
+        "estimate": 1.9051,
+        "period": "2025-06-30",
+        "quarter": 2,
+        "surprise": 0.9649,
+        "surprisePercent": 50.6483,
+        "symbol": "TRGP",
+        "year": 2025
+      },
+      {
+        "actual": 0.91,
+        "estimate": 2.0162,
+        "period": "2025-03-31",
+        "quarter": 1,
+        "surprise": -1.1062,
+        "surprisePercent": -54.8656,
+        "symbol": "TRGP",
+        "year": 2025
+      }
+    ]
+  },
+  "marketaux": null,
+  "alphavantage": {
+    "overview": {
+      "Symbol": "TRGP",
+      "AssetType": "Common Stock",
+      "Name": "Targa Resources Inc",
+      "Description": "Targa Resources Corp. The company is headquartered in Houston, Texas.",
+      "CIK": "1389170",
+      "Exchange": "NYSE",
+      "Currency": "USD",
+      "Country": "USA",
+      "Sector": "ENERGY",
+      "Industry": "OIL & GAS MIDSTREAM",
+      "Address": "811 LOUISIANA STREET, HOUSTON, TX, UNITED STATES, 77002",
+      "OfficialSite": "https://www.targaresources.com",
+      "FiscalYearEnd": "December",
+      "LatestQuarter": "2025-12-31",
+      "MarketCapitalization": "51031708000",
+      "EBITDA": "4846500000",
+      "PERatio": "27.93",
+      "PEGRatio": "1.228",
+      "BookValue": "14.29",
+      "DividendPerShare": "4",
+      "DividendYield": "0.0167",
+      "EPS": "8.5",
+      "RevenuePerShareTTM": "78.8",
+      "ProfitMargin": "0.113",
+      "OperatingMarginTTM": "0.226",
+      "ReturnOnAssetsTTM": "0.0868",
+      "ReturnOnEquityTTM": "0.514",
+      "RevenueTTM": "17028300000",
+      "GrossProfitTTM": "6520500000",
+      "DilutedEPSTTM": "8.5",
+      "QuarterlyEarningsGrowthYOY": "0.745",
+      "QuarterlyRevenueGrowthYOY": "-0.079",
+      "AnalystTargetPrice": "247.85",
+      "AnalystRatingStrongBuy": "5",
+      "AnalystRatingBuy": "15",
+      "AnalystRatingHold": "1",
+      "AnalystRatingSell": "0",
+      "AnalystRatingStrongSell": "0",
+      "TrailingPE": "27.93",
+      "ForwardPE": "22.62",
+      "PriceToSalesRatioTTM": "2.997",
+      "PriceToBookRatio": "16.63",
+      "EVToRevenue": "4.016",
+      "EVToEBITDA": "14.09",
+      "Beta": "0.853",
+      "52WeekHigh": "250",
+      "52WeekLow": "142.48",
+      "50DayMovingAverage": "215.49",
+      "200DayMovingAverage": "179.9",
+      "SharesOutstanding": "214952000",
+      "SharesFloat": "211474000",
+      "PercentInsiders": "1.375",
+      "PercentInstitutions": "95.631",
+      "DividendDate": "2026-02-13",
+      "ExDividendDate": "2026-01-30"
+    },
+    "earnings": []
+  }
+}
