@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SEC EDGAR + financial API lookup tool for stock analyst agent."""
+"""SANC — Stock Analyst Named Claude. SEC EDGAR + financial API CLI."""
 
 import sys
 import json
@@ -184,7 +184,7 @@ def get_research(ticker):
 
 def main():
     if len(sys.argv) < 3:
-        print("Usage: sec-lookup.py <command> <TICKER>", file=sys.stderr)
+        print("Usage: sanc <command> <TICKER>", file=sys.stderr)
         print("Commands: filings, research", file=sys.stderr)
         sys.exit(1)
 
