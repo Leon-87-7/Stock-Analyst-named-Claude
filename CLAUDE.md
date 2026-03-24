@@ -29,7 +29,7 @@ pytest test_sanc.py -v
 - `quarterly`: SEC EDGAR → last 4 10-Q quarterly filing metadata.
 - `research`: Aggregates data from Finnhub (analyst recs, peers, earnings), MarketAux (news sentiment), and Alpha Vantage (financials, quarterly earnings). Graceful degradation — succeeds if at least one API returns data.
 
-**Per-ticker directories** (e.g., `FANG/`, `TRGP/`):
+**`stocks/`** — Per-ticker output directories (e.g., `stocks/FANG/`, `stocks/TRGP/`), gitignored:
 - `filings.json` / `quarterly-filings.json` / `research-data.json` — raw API outputs
 - `bull-case.md` — Peter Lynch 8-part investment pitch
 - `bear-case.md` — Charlie Munger inversion analysis
