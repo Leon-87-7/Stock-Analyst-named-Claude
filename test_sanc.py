@@ -1,7 +1,7 @@
 import subprocess, json, os
 from datetime import datetime, timedelta
 
-SCRIPT = os.path.join(os.path.dirname(__file__), "sec-lookup.py")
+SCRIPT = os.path.join(os.path.dirname(__file__), "sanc.py")
 BASE = os.path.dirname(__file__)
 
 def run(cmd):
